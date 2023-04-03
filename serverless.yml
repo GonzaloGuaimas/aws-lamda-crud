@@ -5,6 +5,12 @@ provider:
   name: aws
   runtime: nodejs18.x
   region: us-west-2
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource:
+        arn:aws:dynamodb:us-west-2:300383399508:table/TaskTable
 
 functions:
   api:
@@ -14,3 +20,16 @@ functions:
           path: /
           method: get
 
+resources:
+  Resources:
+    TaskTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: TaskTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
