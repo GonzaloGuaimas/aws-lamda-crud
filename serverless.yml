@@ -14,7 +14,7 @@ provider:
 
 functions:
   api:
-    handler: index.handler
+    handler: src/hello.handler
     events:
       - httpApi:
           path: /
